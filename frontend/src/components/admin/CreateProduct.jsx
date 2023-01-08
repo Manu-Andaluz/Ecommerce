@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PrimaryButton } from "./CommonStyled";
 import { productsCreate } from "../../slices/productsSlice";
@@ -10,10 +9,10 @@ const CreateProduct = () => {
   const { createStatus } = useSelector((state) => state.products);
 
   const [productImg, setProductImg] = useState("");
-  const [brand, setBrand] = useState("");
+  const [category, setcategory] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [desc, setDesc] = useState("");
+  const [details, setdetails] = useState("");
 
   const handleProductImageUpload = (e) => {
     const file = e.target.files[0];
@@ -40,9 +39,9 @@ const CreateProduct = () => {
     dispatch(
       productsCreate({
         name,
-        brand,
+        category,
         price,
-        desc,
+        details,
         image: productImg,
       })
     );
@@ -59,29 +58,32 @@ const CreateProduct = () => {
           onChange={handleProductImageUpload}
           required
         />
-        <select onChange={(e) => setBrand(e.target.value)} required>
-          <option value="">Select Brand</option>
-          <option value="iphone">iPhone</option>
-          <option value="samsung">Samsung</option>
-          <option value="xiomi">Xiomi</option>
-          <option value="other">Other</option>
+        <select onChange={(e) => setcategory(e.target.value)} required>
+          <option value="">Select category</option>
+          <option value="Tecnologia">Tecnología</option>
+          <option value="Indumentaria">Indumentaria</option>
+          <option value="Accesorios">Accesorios</option>
+          <option value="Mates">Mates</option>
         </select>
         <input
           type="text"
           placeholder="Name"
+          value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
         <input
           type="number"
           placeholder="Price"
+          value={price}
           onChange={(e) => setPrice(e.target.value)}
           required
         />
         <input
           type="text"
-          placeholder="Short Description"
-          onChange={(e) => setDesc(e.target.value)}
+          placeholder="Short detailsription"
+          value={details}
+          onChange={(e) => setdetails(e.target.value)}
           required
         />
 

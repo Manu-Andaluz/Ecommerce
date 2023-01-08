@@ -17,11 +17,11 @@ const CheckoutSuccess = () => {
 
   return (
     <Container>
-      <h2>Checkout Successful</h2>
-      <p>Your order might take some time to process.</p>
-      <p>Check your order status at your profile after about 10mins.</p>
+      <h2>Compra Exitosa</h2>
+      <p>Tu orden puede tomar cierto tiempo para ser procesada</p>
+      <p>Comproba el estado de la orden en tu perfil luego de 10 minutos</p>
       <p>
-        Incase of any inqueries contact the support at{" "}
+        En caso de cualquier consulta comunicate en{" "}
         <strong>support@onlineshop.com</strong>
       </p>
     </Container>

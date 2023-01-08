@@ -15,17 +15,17 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/summary"
+          to="/admin/products"
         >
-          Summary
+          Productos
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/products"
+          to="/admin/summary"
         >
-          Products
+          Estadísticas
         </NavLink>
         <NavLink
           className={({ isActive }) =>
@@ -33,7 +33,7 @@ const Dashboard = () => {
           }
           to="/admin/orders"
         >
-          Orders
+          Pedidos
         </NavLink>
         <NavLink
           className={({ isActive }) =>
@@ -41,7 +41,7 @@ const Dashboard = () => {
           }
           to="/admin/users"
         >
-          Users
+          Usuarios
         </NavLink>
       </SideNav>
       <Content>

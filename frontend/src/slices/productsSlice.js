@@ -7,6 +7,8 @@ const initialState = {
   items: [],
   status: null,
   createStatus: null,
+  deleteStatus: null,
+  editStatus: null
 };
 
 export const productsFetch = createAsyncThunk(
@@ -28,6 +30,41 @@ export const productsCreate = createAsyncThunk(
     try {
       const response = await axios.post(
         `${url}/products`,
+        values,
+        setHeaders()
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data);
+    }
+  }
+);
+
+export const productDelete = createAsyncThunk(
+  "products/productDelete",
+  async (id) => {
+    try {
+      const response = await axios.delete(
+        `${url}/products/${id}`,
+        setHeaders()
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data);
+    }
+  }
+);
+
+export const productEdit = createAsyncThunk(
+  "products/productEdit",
+  async (values) => {
+    try {
+      const response = await axios.put(
+        `${url}/products/${values.product._id}`,
         values,
         setHeaders()
       );
@@ -65,6 +102,32 @@ const productsSlice = createSlice({
     },
     [productsCreate.rejected]: (state, action) => {
       state.createStatus = "rejected";
+    },
+    [productDelete.pending]: (state, action) => {
+      state.deleteStatus = "pending";
+    },
+    [productDelete.fulfilled]: (state, action) => {
+      const newList = state.items.filter(item => item._id !== action.payload._id)
+      state.items = newList
+      state.deleteStatus = "success";
+      toast.success("Product Deleted!");
+    },
+    [productDelete.rejected]: (state, action) => {
+      state.deleteStatus = "rejected";
+    },
+    [productEdit.pending]: (state, action) => {
+      state.editStatus = "pending";
+    },
+    [productEdit.fulfilled]: (state, action) => {
+      const updateProducts = state.items.map(product =>
+        product._id === action.payload._id ? action.payload : product
+      )
+      state.items = updateProducts
+      state.editStatus = "success";
+      toast.success("Producto Editado!");
+    },
+    [productEdit.rejected]: (state, action) => {
+      state.editStatus = "rejected";
     },
   },
 });

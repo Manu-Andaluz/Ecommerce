@@ -37,10 +37,10 @@ const Cart = () => {
   };
   return (
     <div className="cart-container">
-      <h2>Shopping Cart</h2>
+      <h2>Carrito de Compra</h2>
       {cart.cartItems.length === 0 ? (
         <div className="cart-empty">
-          <p>Your cart is currently empty</p>
+          <p>Tu carrito esta vacío</p>
           <div className="start-shopping">
             <Link to="/">
               <svg
@@ -56,16 +56,16 @@ const Cart = () => {
                   d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                 />
               </svg>
-              <span>Start Shopping</span>
+              <span>Ver Productos</span>
             </Link>
           </div>
         </div>
       ) : (
         <div>
           <div className="titles">
-            <h3 className="product-title">Product</h3>
-            <h3 className="price">Price</h3>
-            <h3 className="quantity">Quantity</h3>
+            <h3 className="product-title">Producto</h3>
+            <h3 className="price">Precio</h3>
+            <h3 className="quantity">Cantidad</h3>
             <h3 className="total">Total</h3>
           </div>
           <div className="cart-items">
@@ -73,12 +73,12 @@ const Cart = () => {
               cart.cartItems.map((cartItem) => (
                 <div className="cart-item" key={cartItem._id}>
                   <div className="cart-product">
-                    <img src={cartItem.image?.url} alt={cartItem.name} />
+                    <img src={cartItem.image.url} alt={cartItem.name} />
                     <div>
                       <h3>{cartItem.name}</h3>
                       <p>{cartItem.desc}</p>
                       <button onClick={() => handleRemoveFromCart(cartItem)}>
-                        Remove
+                        Remover
                       </button>
                     </div>
                   </div>
@@ -105,7 +105,9 @@ const Cart = () => {
                 <span>Subtotal</span>
                 <span className="amount">${cart.cartTotalAmount}</span>
               </div>
-              <p>Taxes and shipping calculated at checkout</p>
+              <p>
+                Impuestos y gastos de envío calculados al finalizar la compra
+              </p>
               {auth._id ? (
                 <PayButton cartItems={cart.cartItems} />
               ) : (
@@ -113,7 +115,7 @@ const Cart = () => {
                   className="cart-login"
                   onClick={() => navigate("/login")}
                 >
-                  Login to Check out
+                  Ingresa para continuar
                 </button>
               )}
 
@@ -132,7 +134,7 @@ const Cart = () => {
                       d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                     />
                   </svg>
-                  <span>Continue Shopping</span>
+                  <span>Continuar Comprando</span>
                 </Link>
               </div>
             </div>

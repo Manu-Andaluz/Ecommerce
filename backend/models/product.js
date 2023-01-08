@@ -1,16 +1,37 @@
-const mongoose = require("mongoose");
+const { required } = require('joi/lib');
+const { Schema, model } = require('mongoose')
 
-const productSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    brand: { type: String, required: true },
-    desc: { type: String, required: true },
-    price: { type: Number, required: true },
-    image: { type: Object, required: true },
-  },
-  { timestamps: true }
-);
+const productSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+    stock: {
+        type: Number,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    color: {
+        type: String,
+    },
+    image: {
+        type: Object,
+        required: true
+    },
+    details: {
+        type: String,
+    },
+    sizes: {
+        type: Array,
+    }
+})
 
-const Product = mongoose.model("Product", productSchema);
+const Product = model("Product", productSchema);
 
 exports.Product = Product;

@@ -20,6 +20,8 @@ import Users from "./components/admin/Users";
 import Orders from "./components/admin/Oders";
 import Summary from "./components/admin/Summary";
 import CreateProduct from "./components/admin/CreateProduct";
+import ProductDetails from "./components/ProductDetails";
+import ProductsList from "./components/admin/list/ProductsList";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +38,7 @@ function App() {
         <div className="content-container">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout-success" element={<CheckoutSuccess />} />
             <Route path="/register" element={<Register />} />
@@ -43,6 +46,7 @@ function App() {
             <Route path="/admin" element={<Dashboard />}>
               <Route path="summary" element={<Summary />} />
               <Route path="products" element={<Products />}>
+                <Route index element={<ProductsList />} />
                 <Route path="create-product" element={<CreateProduct />} />
               </Route>
               <Route path="users" element={<Users />} />
