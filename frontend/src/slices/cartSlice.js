@@ -23,13 +23,13 @@ const cartSlice = createSlice({
           ...state.cartItems[existingIndex],
           cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
         };
-        toast.info("Increased product quantity", {
+        toast.info("Incrementar cantidad del producto", {
           position: "bottom-left",
         });
       } else {
         let tempProductItem = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProductItem);
-        toast.success("Product added to cart", {
+        toast.success("Producto añadido al carrito", {
           position: "bottom-left",
         });
       }
@@ -43,7 +43,7 @@ const cartSlice = createSlice({
       if (state.cartItems[itemIndex].cartQuantity > 1) {
         state.cartItems[itemIndex].cartQuantity -= 1;
 
-        toast.info("Decreased product quantity", {
+        toast.info("Disminuir cantidad del producto", {
           position: "bottom-left",
         });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
@@ -53,7 +53,7 @@ const cartSlice = createSlice({
 
         state.cartItems = nextCartItems;
 
-        toast.error("Product removed from cart", {
+        toast.error("Producto removido del carrito", {
           position: "bottom-left",
         });
       }
@@ -69,7 +69,7 @@ const cartSlice = createSlice({
 
           state.cartItems = nextCartItems;
 
-          toast.error("Product removed from cart", {
+          toast.error("Producto removido del carrito", {
             position: "bottom-left",
           });
         }

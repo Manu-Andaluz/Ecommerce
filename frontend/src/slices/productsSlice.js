@@ -98,7 +98,7 @@ const productsSlice = createSlice({
     [productsCreate.fulfilled]: (state, action) => {
       state.items.push(action.payload);
       state.createStatus = "success";
-      toast.success("Product Created!");
+      toast.success("Producto Creado!");
     },
     [productsCreate.rejected]: (state, action) => {
       state.createStatus = "rejected";
@@ -110,7 +110,7 @@ const productsSlice = createSlice({
       const newList = state.items.filter(item => item._id !== action.payload._id)
       state.items = newList
       state.deleteStatus = "success";
-      toast.success("Product Deleted!");
+      toast.success("Producto Eliminado!");
     },
     [productDelete.rejected]: (state, action) => {
       state.deleteStatus = "rejected";
