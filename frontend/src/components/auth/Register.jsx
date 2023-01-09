@@ -23,7 +23,6 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/");
     console.log(user);
     dispatch(registerUser(user));
   };
