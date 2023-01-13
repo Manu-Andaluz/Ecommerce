@@ -1,4 +1,4 @@
-export const url = "http://localhost:5000/api";
+export const url = "https://ecommerce-backend-production-be36.up.railway.app/";
 
 export const setHeaders = () => {
   const headers = {
