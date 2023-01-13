@@ -1,6 +1,6 @@
-const { Order } = require("../models/Order");
+const { Order } = require("../models/order");
 const { auth, isUser, isAdmin } = require("../middleware/auth");
-
+const moment = require('moment')
 const router = require("express").Router();
 
 //CREATE
@@ -58,8 +58,79 @@ router.get("/find/:userId", isUser, async (req, res) => {
 //GET ALL ORDERS
 
 router.get("/", isAdmin, async (req, res) => {
+  const query = req.body.newOnes
+
   try {
-    const orders = await Order.find();
+    const orders = query
+      ? await Order.find().sort({ "createdAt": -1 }).limit(4)
+      : await Order.find().sort({ "createdAt": -1 })
+
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//GET ALL ORDERS (NUMBER)
+
+router.get("/number", isAdmin, async (req, res) => {
+  try {
+    const orders = await Order.find()
+    res.status(200).send(orders.length.toLocaleString());
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// GET STATS
+
+router.get("/stats", isAdmin, async (req, res) => {
+  const previusMonth = moment()
+    .month(moment().month() - 1)
+    .set("date", 1)
+    .format("YYYY-MM-DD HH:mm:ss")
+
+  try {
+    const orders = await Order.aggregate([
+      {
+        $match: { createdAt: { $gte: new Date(previusMonth) } }
+      },
+      {
+        $project: {
+          month: { $month: "$createdAt" }
+        }
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: 1 }
+        }
+      }
+    ]);
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// GET ALL INCOME
+
+router.get("/allTimeIncome", isAdmin, async (req, res) => {
+
+  try {
+    const orders = await Order.aggregate([
+      {
+        $project: {
+          sales: "$total"
+        }
+      },
+      {
+        $group: {
+          _id: "$month",
+          total: { $sum: "$sales" }
+        }
+      }
+    ]);
     res.status(200).send(orders);
   } catch (err) {
     res.status(500).send(err);
@@ -69,29 +140,80 @@ router.get("/", isAdmin, async (req, res) => {
 // GET MONTHLY INCOME
 
 router.get("/income", isAdmin, async (req, res) => {
-  const date = new Date();
-  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
-  const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
+  const previusMonth = moment()
+    .month(moment().month() - 1)
+    .set("date", 1)
+    .format("YYYY-MM-DD HH:mm:ss")
 
   try {
-    const income = await Order.aggregate([
-      { $match: { createdAt: { $gte: previousMonth } } },
+    const orders = await Order.aggregate([
+      {
+        $match: { createdAt: { $gte: new Date(previusMonth) } }
+      },
       {
         $project: {
           month: { $month: "$createdAt" },
-          sales: "$amount",
-        },
+          sales: "$total"
+        }
       },
       {
         $group: {
           _id: "$month",
-          total: { $sum: "$sales" },
-        },
-      },
+          total: { $sum: "$sales" }
+        }
+      }
     ]);
-    res.status(200).send(income);
+    res.status(200).send(orders);
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+
+// GET ONE WEEK INCOME
+
+router.get("/daysIncome", isAdmin, async (req, res) => {
+  const lastSevenDays = moment()
+    .day(moment().day() - 7)
+    .format("YYYY-MM-DD HH:mm:ss")
+
+  try {
+    const orders = await Order.aggregate([
+      {
+        $match: { createdAt: { $gte: new Date(lastSevenDays) } }
+      },
+      {
+        $project: {
+          day: { $dayOfWeek: "$createdAt" },
+          sales: "$total"
+        }
+      },
+      {
+        $group: {
+          _id: "$day",
+          total: { $sum: "$sales" }
+        }
+      }
+    ]);
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// DELETE ORDER
+
+router.delete("/:id", isAdmin, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) return res.status(404).send("User not found... ");
+
+    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+
+    res.status(200).send(deletedOrder);
+
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 

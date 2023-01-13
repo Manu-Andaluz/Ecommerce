@@ -54,7 +54,7 @@ const NavBar = () => {
             <Links>
               {auth.isAdmin ? (
                 <div>
-                  <Link to="/admin/products">Admin</Link>
+                  <Link to="/admin/summary">Admin</Link>
                 </div>
               ) : null}
               <div

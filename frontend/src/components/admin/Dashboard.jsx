@@ -10,15 +10,7 @@ const Dashboard = () => {
   return (
     <StyledDashboard>
       <SideNav>
-        <h3>Quick Links</h3>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "link-active" : "link-inactive"
-          }
-          to="/admin/products"
-        >
-          Productos
-        </NavLink>
+        <h3>DashBoards</h3>
         <NavLink
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
@@ -26,6 +18,14 @@ const Dashboard = () => {
           to="/admin/summary"
         >
           Estadísticas
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/admin/products"
+        >
+          Productos
         </NavLink>
         <NavLink
           className={({ isActive }) =>

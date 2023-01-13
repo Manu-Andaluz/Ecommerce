@@ -9,11 +9,9 @@ const auth = (req, res, next) => {
     const decoded = jwt.verify(token, jwtSecretKey);
 
     req.user = decoded;
-    console.log('is auth')
     next();
   } catch (ex) {
     res.status(400).send("Invalid auth token...");
-    console.log('is not auth')
   }
 };
 
@@ -32,10 +30,8 @@ const isUser = (req, res, next) => {
 const isAdmin = (req, res, next) => {
   auth(req, res, () => {
     if (req.user.isAdmin) {
-      console.log('is admin')
       next();
     } else {
-      console.log('is not admin')
       res.status(403).send("Access denied. Not authorized...");
     }
   });

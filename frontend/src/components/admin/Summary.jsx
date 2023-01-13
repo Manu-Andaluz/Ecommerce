@@ -1,35 +1,102 @@
 import styled from "styled-components";
 import { FaUsers, FaChartBar, FaClipboard } from "react-icons/fa";
 import Widget from "./summaryComponents/Widget";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { setHeaders, url } from "../../slices/api";
+import Chart from "./summaryComponents/Charts";
+import Transactions from "./summaryComponents/Transactions";
+import AllTimeData from "./summaryComponents/AllTimeData";
 
 const Summary = () => {
+  const [users, setUsers] = useState();
+  const [usersPerc, setUserPerc] = useState(0);
+  const [orders, setoOders] = useState();
+  const [ordersPerc, setOrdersPerc] = useState(0);
+  const [total, setTotal] = useState();
+  const [totalPerc, setTotalPerc] = useState(0);
+
+  console.log(orders);
+  console.log("%", ordersPerc);
+
+  function compare(a, b) {
+    if (a._id < b._id) return 1;
+    if (a._id > b._id) return -1;
+    else return 0;
+  }
+
+  async function fetchOrders() {
+    try {
+      const res = await axios.get(`${url}/orders/stats`, setHeaders());
+      res.data.sort(compare);
+      setoOders(res.data);
+      setOrdersPerc(
+        ((res.data[0].total - res.data[1].total) / res.data[1].total) * 100
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function fetchUsers() {
+    try {
+      const res = await axios.get(`${url}/users/stats`, setHeaders());
+      res.data.sort(compare);
+      setUsers(res.data);
+      setUserPerc(
+        ((res.data[0].total - res.data[1].total) / res.data[1].total) * 100
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function fetchTotal() {
+    try {
+      const res = await axios.get(`${url}/orders/income`, setHeaders());
+      res.data.sort(compare);
+      setTotal(res.data);
+      setTotalPerc(
+        ((res.data[0].total - res.data[1].total) / res.data[1].total) * 100
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchUsers();
+    fetchOrders();
+    fetchTotal();
+  }, []);
+
   const data = [
     {
       icon: <FaUsers />,
-      digits: 50,
+      digits: users && users[0]?.total,
       isMoney: false,
-      title: "Users",
+      title: "Usuarios",
       color: "rgb(102, 108, 255)",
       bgColor: "rgba(102, 108, 255, 0.12)",
-      percentage: 30,
-    },
-    {
-      icon: <FaChartBar />,
-      digits: 70,
-      isMoney: false,
-      title: "Orders",
-      color: "rgb(38, 198, 249)",
-      bgColor: "rgba(38, 198, 249, 0.12)",
-      percentage: 20,
+      percentage: usersPerc,
     },
     {
       icon: <FaClipboard />,
-      digits: 50,
+      digits: orders && orders[0]?.total,
       isMoney: false,
-      title: "Earnings",
+      title: "Ordenes",
+      color: "rgb(38, 198, 249)",
+      bgColor: "rgba(38, 198, 249, 0.12)",
+      percentage: ordersPerc,
+    },
+    {
+      icon: <FaChartBar />,
+      digits: total ? total[0]?.total / 100 : "",
+      isMoney: true,
+      title: "Ganancias",
       color: "rgb(253, 181, 40)",
       bgColor: "rgba(253, 181, 40, 0.12)",
-      percentage: 60,
+      percentage: totalPerc,
     },
   ];
 
@@ -38,8 +105,8 @@ const Summary = () => {
       <MainStats>
         <Overview>
           <Title>
-            <h2>Overview</h2>
-            <p>Como tus compras estan performando comparado al año pasado</p>
+            <h2>Vista General</h2>
+            <p>Estadísticas generales de la empresa</p>
           </Title>
           <WidgetWrapper>
             {data.map((data, index) => (
@@ -47,8 +114,12 @@ const Summary = () => {
             ))}
           </WidgetWrapper>
         </Overview>
+        <Chart />
       </MainStats>
-      <SideStats></SideStats>
+      <SideStats>
+        <Transactions />
+        <AllTimeData />
+      </SideStats>
     </StyledSummary>
   );
 };
@@ -57,6 +128,7 @@ export default Summary;
 
 const StyledSummary = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 `;
 
@@ -76,7 +148,7 @@ const Overview = styled.div`
   display: flex;
   width: 100%;
   height: 170px;
-  padding; 1.5rem;
+  padding: 1.5rem;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 10px;
