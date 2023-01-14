@@ -31,7 +31,9 @@ const Home = () => {
                   </Link>
                   <div className="details">
                     <span>{product.desc}</span>
-                    <span className="price">${product.price}</span>
+                    <span className="price">
+                      ${product.price.toLocaleString()}
+                    </span>
                   </div>
                   <button
                     className="add-cart-btn"
