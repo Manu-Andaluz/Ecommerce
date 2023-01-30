@@ -37,10 +37,10 @@ const Cart = () => {
   };
   return (
     <div className="cart-container">
-      <h2>Carrito de Compra</h2>
+      <h2>Shopping Cart</h2>
       {cart.cartItems.length === 0 ? (
         <div className="cart-empty">
-          <p>Tu carrito esta vacío</p>
+          <p>Your cart is empty</p>
           <div className="start-shopping">
             <Link to="/">
               <svg
@@ -56,16 +56,16 @@ const Cart = () => {
                   d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                 />
               </svg>
-              <span>Ver Productos</span>
+              <span>View Products</span>
             </Link>
           </div>
         </div>
       ) : (
         <div>
           <div className="titles">
-            <h3 className="product-title">Producto</h3>
-            <h3 className="price">Precio</h3>
-            <h3 className="quantity">Cantidad</h3>
+            <h3 className="product-title">Product</h3>
+            <h3 className="price">Price</h3>
+            <h3 className="quantity">Quantity</h3>
             <h3 className="total">Total</h3>
           </div>
           <div className="cart-items">
@@ -78,7 +78,7 @@ const Cart = () => {
                       <h3>{cartItem.name}</h3>
                       <p>{cartItem.desc}</p>
                       <button onClick={() => handleRemoveFromCart(cartItem)}>
-                        Remover
+                        Remove
                       </button>
                     </div>
                   </div>
@@ -109,9 +109,7 @@ const Cart = () => {
                   ${cart.cartTotalAmount.toLocaleString()}
                 </span>
               </div>
-              <p>
-                Impuestos y gastos de envío calculados al finalizar la compra
-              </p>
+              <p>Taxes and shipping costs calculated at checkout</p>
               {auth._id ? (
                 <PayButton cartItems={cart.cartItems} />
               ) : (
@@ -119,7 +117,7 @@ const Cart = () => {
                   className="cart-login"
                   onClick={() => navigate("/login")}
                 >
-                  Ingresa para continuar
+                  Login to continue
                 </button>
               )}
 
@@ -138,7 +136,7 @@ const Cart = () => {
                       d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                     />
                   </svg>
-                  <span>Continuar Comprando</span>
+                  <span>Continue Shopping</span>
                 </Link>
               </div>
             </div>

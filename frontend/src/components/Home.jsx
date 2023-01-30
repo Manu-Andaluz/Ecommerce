@@ -20,7 +20,7 @@ const Home = () => {
     <div className="home-container">
       {status === "success" ? (
         <>
-          <h2>Todos los Productos</h2>
+          <h2>All Products</h2>
           <div className="products">
             {data &&
               data?.map((product) => (
@@ -39,16 +39,16 @@ const Home = () => {
                     className="add-cart-btn"
                     onClick={() => handleAddToCart(product)}
                   >
-                    Añadir al Carrito
+                    Add to Cart
                   </button>
                 </div>
               ))}
           </div>
         </>
       ) : status === "pending" ? (
-        <p>Cargando...</p>
+        <p>Loading...</p>
       ) : (
-        <p>Ocurrió un error...</p>
+        <p>An error occurred...</p>
       )}
     </div>
   );

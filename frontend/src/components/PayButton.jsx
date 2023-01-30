@@ -22,7 +22,7 @@ const PayButton = ({ cartItems }) => {
   return (
     <>
       <button onClick={() => handleCheckout()}>
-        Continuar con el Check Out
+        Continue with the Check Out
       </button>
     </>
   );

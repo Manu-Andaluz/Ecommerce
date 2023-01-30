@@ -75,7 +75,7 @@ const Summary = () => {
       icon: <FaUsers />,
       digits: users && users[0]?.total,
       isMoney: false,
-      title: "Usuarios",
+      title: "Users",
       color: "rgb(102, 108, 255)",
       bgColor: "rgba(102, 108, 255, 0.12)",
       percentage: usersPerc,
@@ -84,7 +84,7 @@ const Summary = () => {
       icon: <FaClipboard />,
       digits: orders && orders[0]?.total,
       isMoney: false,
-      title: "Ordenes",
+      title: "Orders",
       color: "rgb(38, 198, 249)",
       bgColor: "rgba(38, 198, 249, 0.12)",
       percentage: ordersPerc,
@@ -93,7 +93,7 @@ const Summary = () => {
       icon: <FaChartBar />,
       digits: total ? total[0]?.total / 100 : "",
       isMoney: true,
-      title: "Ganancias",
+      title: "Earnings",
       color: "rgb(253, 181, 40)",
       bgColor: "rgba(253, 181, 40, 0.12)",
       percentage: totalPerc,
@@ -105,8 +105,8 @@ const Summary = () => {
       <MainStats>
         <Overview>
           <Title>
-            <h2>Vista General</h2>
-            <p>Estadísticas generales de la empresa</p>
+            <h2>Overview</h2>
+            <p>General company statistics</p>
           </Title>
           <WidgetWrapper>
             {data.map((data, index) => (

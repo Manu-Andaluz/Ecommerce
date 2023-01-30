@@ -17,7 +17,7 @@ const Dashboard = () => {
           }
           to="/admin/summary"
         >
-          Estadísticas
+          Stats
         </NavLink>
         <NavLink
           className={({ isActive }) =>
@@ -25,7 +25,7 @@ const Dashboard = () => {
           }
           to="/admin/products"
         >
-          Productos
+          Products
         </NavLink>
         <NavLink
           className={({ isActive }) =>
@@ -33,7 +33,7 @@ const Dashboard = () => {
           }
           to="/admin/orders"
         >
-          Pedidos
+          Orders
         </NavLink>
         <NavLink
           className={({ isActive }) =>
@@ -41,7 +41,7 @@ const Dashboard = () => {
           }
           to="/admin/users"
         >
-          Usuarios
+          Users
         </NavLink>
       </SideNav>
       <Content>

@@ -29,7 +29,7 @@ const Transactions = () => {
         <p>Transactions Loading ...</p>
       ) : (
         <>
-          <h3>Últimas Transacciones </h3>
+          <h3>Latest Transactions </h3>
           {oders &&
             oders.map((order, index) => {
               return (

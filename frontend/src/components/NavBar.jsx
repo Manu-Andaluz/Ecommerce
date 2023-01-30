@@ -21,7 +21,7 @@ const NavBar = () => {
   return (
     <header>
       <Link to="/" className="logo">
-        <h2>Logo</h2>
+        <h2>Ecommerce</h2>
       </Link>
       <nav ref={navRef}>
         <div>
@@ -63,7 +63,7 @@ const NavBar = () => {
                   toast.warning("Logged out!", { position: "bottom-left" });
                 }}
               >
-                Cerrar sesión
+                Logout
               </div>
             </Links>
           ) : (
@@ -74,7 +74,7 @@ const NavBar = () => {
                   e.target.className === "responsive_nav" ? "" : showNavbar()
                 }
               >
-                Ingresar
+                Login
               </Link>
               <Link
                 to="register"
@@ -82,7 +82,7 @@ const NavBar = () => {
                   e.target.className === "responsive_nav" ? "" : showNavbar()
                 }
               >
-                Registrar
+                Register
               </Link>
             </div>
           )}

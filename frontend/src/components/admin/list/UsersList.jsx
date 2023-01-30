@@ -44,23 +44,23 @@ export default function UsersList() {
     { field: "id", headerName: "ID", width: 220 },
     {
       field: "name",
-      headerName: "Nombre",
+      headerName: "Name",
       width: 200,
     },
     { field: "email", headerName: "Email", width: 220 },
     {
       field: "isAdmin",
-      headerName: "Es Admin",
+      headerName: "Is Admin",
       width: 80,
     },
     {
       field: "createdAt",
-      headerName: "Creado En",
+      headerName: "Created At",
       width: 115,
     },
     {
       field: "actions",
-      headerName: "Acciones",
+      headerName: "Actions",
       sortable: false,
       width: 130,
       renderCell: (params) => {

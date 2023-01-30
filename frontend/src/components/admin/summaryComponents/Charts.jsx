@@ -52,7 +52,7 @@ const Chart = () => {
         <Loader> Loading Chart ... </Loader>
       ) : (
         <StyledChart>
-          <h3>Ultimos 7 días</h3>
+          <h3>Last 7 days</h3>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               width={500}

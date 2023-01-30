@@ -46,23 +46,23 @@ export default function OrdersList() {
     { field: "id", headerName: "ID", width: 220 },
     {
       field: "name",
-      headerName: "Nombre de la Persona",
+      headerName: "Name",
       width: 200,
     },
     { field: "paymentStatus", headerName: "Pago", width: 80 },
     {
       field: "deliveryStatus",
-      headerName: "Envío",
-      width: 80,
+      headerName: "Delivery Status",
+      width: 150,
     },
     {
       field: "createdAt",
-      headerName: "Creado En",
+      headerName: "Created At",
       width: 115,
     },
     {
       field: "actions",
-      headerName: "Acciones",
+      headerName: "Actions",
       sortable: false,
       width: 130,
       renderCell: (params) => {

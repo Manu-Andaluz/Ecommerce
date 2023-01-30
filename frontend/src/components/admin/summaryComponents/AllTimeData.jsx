@@ -51,21 +51,21 @@ const AllTimeData = () => {
         <p>Loagindg All Data ...</p>
       ) : (
         <Main>
-          <h3>Todos los Datos</h3>
+          <h3>All Data</h3>
           <Info>
-            <Title>Usuarios</Title>
+            <Title>Users</Title>
             <Data>{users && users}</Data>
           </Info>
           <Info>
-            <Title>Productos</Title>
+            <Title>Products</Title>
             <Data>{items && items.length}</Data>
           </Info>
           <Info>
-            <Title>Pedidos</Title>
+            <Title>Orders</Title>
             <Data>{orders && orders}</Data>
           </Info>
           <Info>
-            <Title>Ganancias</Title>
+            <Title>Earnings</Title>
             <Data>${income && income.total.toLocaleString()}</Data>
           </Info>
         </Main>

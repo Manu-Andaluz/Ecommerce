@@ -50,7 +50,7 @@ const ProductDetails = () => {
           className="add-cart-btn"
           onClick={() => handleAddToCart(product)}
         >
-          Añadir al Carrito
+          Add to Cart
         </button>
       </div>
     </div>

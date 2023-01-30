@@ -108,9 +108,9 @@ export default function EditProduct({ productId }) {
                 required
               >
                 <option value="">Select category</option>
-                <option value="Tecnologia">Tecnología</option>
-                <option value="Indumentaria">Indumentaria</option>
-                <option value="Accesorios">Accesorios</option>
+                <option value="Technology">Technology</option>
+                <option value="Indumentary">Indumentary</option>
+                <option value="Accessories">Accessories</option>
                 <option value="Mates">Mates</option>
               </select>
               <input
@@ -151,8 +151,8 @@ export default function EditProduct({ productId }) {
           </StyledEditProduct>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleClose}>Aceptar</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Accept</Button>
         </DialogActions>
       </Dialog>
     </div>
