@@ -2,31 +2,19 @@ import styled from "styled-components";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "axios";
-import { setHeaders, url } from "../../../slices/api";
-import { useState } from "react";
+import { getUserList } from "../../../slices/dataList";
 
 export default function UsersList() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [users, setUsers] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get(`${url}/users`, setHeaders());
-      setUsers(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const users = useSelector((state) => state.dataList.userList);
 
   useEffect(() => {
-    fetchUsers();
+    dispatch(getUserList());
   }, []);
+
+  console.log(users);
 
   const rows =
     users &&
