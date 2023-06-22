@@ -24,6 +24,7 @@ export default function EditProduct({ productId }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [details, setdetails] = useState("");
+  const [stock, setStock] = useState("");
 
   const handleProductImageUpload = (e) => {
     const file = e.target.files[0];
@@ -56,6 +57,7 @@ export default function EditProduct({ productId }) {
           name,
           category,
           price,
+          stock,
           details,
         },
       })
@@ -74,6 +76,7 @@ export default function EditProduct({ productId }) {
     setProductImg("");
     setdetails(selectedProduct.details);
     setPrice(selectedProduct.price);
+    setStock(selectedProduct.stock);
     setName(selectedProduct.name);
     setcategory(selectedProduct.category);
   };
@@ -125,6 +128,13 @@ export default function EditProduct({ productId }) {
                 placeholder="Price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+              <input
+                type="number"
+                placeholder="Stock"
+                value={stock}
+                onChange={(e) => setStock(e.target.value)}
                 required
               />
               <input

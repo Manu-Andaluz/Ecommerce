@@ -7,27 +7,27 @@ const router = require("express").Router();
 //CREATE
 
 router.post("/", isAdmin, async (req, res) => {
-  const { name, category, details, price, image } = req.body;
+  const { name, category, details, price, image, stock } = req.body;
 
   try {
     const uploadedResponse = await cloudinary.uploader.upload(image, {
       upload_preset: "online-shop",
     });
 
+    console.log(stock);
 
     const product = new Product({
       name,
       category,
       details,
       price,
+      stock,
       image: uploadedResponse,
-    })
+    });
 
     const savedProduct = await product.save();
     res.status(200).send(savedProduct);
-  }
-
-  catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).send(error);
   }
@@ -97,12 +97,15 @@ router.put("/:id", isAdmin, async (req, res) => {
     if (req.body.productImg) {
       const destroyResponse = await cloudinary.uploader.destroy(
         req.body.product.image.public_id
-      )
+      );
 
       if (destroyResponse) {
-        const uploadedResponse = await cloudinary.uploader.upload(req.body.productImg, {
-          upload_preset: "online-shop",
-        });
+        const uploadedResponse = await cloudinary.uploader.upload(
+          req.body.productImg,
+          {
+            upload_preset: "online-shop",
+          }
+        );
 
         if (uploadedResponse) {
           const updatedProduct = await Product.findByIdAndUpdate(
@@ -111,24 +114,23 @@ router.put("/:id", isAdmin, async (req, res) => {
               $set: {
                 ...req.body.product,
                 image: uploadedResponse,
-              }
-            }, { new: true }
-          )
+              },
+            },
+            { new: true }
+          );
           res.status(200).send(updatedProduct);
         }
       }
-
-    }
-
-    else {
+    } else {
       const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
         {
           $set: {
             ...req.body.product,
-          }
-        }, { new: true }
-      )
+          },
+        },
+        { new: true }
+      );
       res.status(200).send(updatedProduct);
     }
   } catch (error) {

@@ -13,6 +13,7 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [details, setdetails] = useState("");
+  const [stock, setStock] = useState("");
 
   const handleProductImageUpload = (e) => {
     const file = e.target.files[0];
@@ -42,6 +43,7 @@ const CreateProduct = () => {
         category,
         price,
         details,
+        stock,
         image: productImg,
       })
     );
@@ -77,6 +79,13 @@ const CreateProduct = () => {
           placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Stock"
+          value={stock}
+          onChange={(e) => setStock(e.target.value)}
           required
         />
         <input

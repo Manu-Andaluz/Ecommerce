@@ -19,13 +19,19 @@ const cartSlice = createSlice({
       );
 
       if (existingIndex >= 0) {
+        if (
+          state.cartItems[existingIndex].cartQuantity >=
+          state.cartItems[existingIndex].stock
+        ) {
+          toast.info("No more stock", {
+            position: "bottom-left",
+          });
+          return;
+        }
         state.cartItems[existingIndex] = {
           ...state.cartItems[existingIndex],
           cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
         };
-        toast.info("Increased product quantity", {
-          position: "bottom-left",
-        });
       } else {
         let tempProductItem = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProductItem);
@@ -42,10 +48,6 @@ const cartSlice = createSlice({
 
       if (state.cartItems[itemIndex].cartQuantity > 1) {
         state.cartItems[itemIndex].cartQuantity -= 1;
-
-        toast.info("Decreased product quantity", {
-          position: "bottom-left",
-        });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
         const nextCartItems = state.cartItems.filter(
           (item) => item._id !== action.payload._id
