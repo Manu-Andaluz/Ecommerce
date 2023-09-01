@@ -4,33 +4,25 @@ import styled from "styled-components";
 import { logoutUser } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { useRef } from "react";
+import "../App.css";
 
-const NavBar = () => {
+const TopAppBar = () => {
   const dispatch = useDispatch();
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
 
-  console.log(auth);
-
   const navRef = useRef();
 
-  const showNavbar = () => {
-    navRef.current.classList.toggle("responsive_nav");
-  };
-
   return (
-    <header>
-      <Link to="/" className="logo">
-        <h2>Ecommerce</h2>
-      </Link>
+    <header className="navigation_screen">
+      <div>
+        <Link to="/" className="logo">
+          <h2>Ecommerce</h2>
+        </Link>
+      </div>
       <nav ref={navRef}>
         <div>
-          <Link
-            to="/cart"
-            onClick={(e) =>
-              e.target.className === "responsive_nav" ? "" : showNavbar()
-            }
-          >
+          <Link to="/cart">
             <div className="nav-bag">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -68,37 +60,17 @@ const NavBar = () => {
             </Links>
           ) : (
             <div className="account-links">
-              <Link
-                to="/login"
-                onClick={(e) =>
-                  e.target.className === "responsive_nav" ? "" : showNavbar()
-                }
-              >
-                Login
-              </Link>
-              <Link
-                to="register"
-                onClick={(e) =>
-                  e.target.className === "responsive_nav" ? "" : showNavbar()
-                }
-              >
-                Register
-              </Link>
+              <Link to="/login">Login</Link>
+              <Link to="register">Register</Link>
             </div>
           )}
         </div>
-        <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-          <i className="fa-solid fa-x"></i>
-        </button>
       </nav>
-      <button className="nav-btn" onClick={showNavbar}>
-        <i className="fa-solid fa-bars"></i>
-      </button>
     </header>
   );
 };
 
-export default NavBar;
+export default TopAppBar;
 
 const Links = styled.div`
   color: white;

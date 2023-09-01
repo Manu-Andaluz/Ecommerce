@@ -38,7 +38,6 @@ header {
   width: 100%;
 }
 
-
 .logo {
   color: white;
   text-decoration: none;
@@ -73,46 +72,18 @@ header nav {
   justify-content: space-between;
 }
 
-@media only screen and (max-width: 1024px) {
-  header .nav-btn {
-    display: block;
-    opacity: 1;
+@media only screen and (max-width: 600px) {
+  .navigation_screen h2:first-child {
+    display: none;
   }
 
-  header nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+  .navigation_screen nav {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    background-color: rgb(128, 128, 128);
-    transition: 1s;
-    transform: translateY(-100vh);
+    width: 100%;
   }
 
-  .account-links {
-    display: grid;
-    gap: 3rem;
-  }
-
-  header .responsive_nav {
-    transform: none;
-  }
-
-  nav .nav-close-btn {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-  }
-
-  nav a {
-    font-size: 1.5rem;
+  .nav-bag svg {
+    height: 25px;
   }
 }
 
@@ -428,7 +399,6 @@ header nav {
 /* Responsive */
 
 @media (max-width: 665px) {
-
   /* Cart */
   .cart-container {
     padding: 2rem;

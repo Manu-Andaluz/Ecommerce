@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Home from "./components/Home";
-import NavBar from "./components/NavBar";
+import TopAppBar from "./components/TopAppBar";
 import NotFound from "./components/NotFound";
 import Cart from "./components/Cart";
 
@@ -34,7 +34,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ToastContainer />
-        <NavBar />
+        <TopAppBar />
         <div className="content-container">
           <Routes>
             <Route path="/" element={<Home />} />
