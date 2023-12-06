@@ -1,8 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const Stripe = require("stripe");
 const { Order } = require("../models/order");
-
-require("dotenv").config();
 
 const router = express.Router();
 
