@@ -1,10 +1,9 @@
 const express = require("express");
 const Stripe = require("stripe");
-const { Order } = require("../models/order");
 
 require("dotenv").config();
 
-const stripe = Stripe(process.env.STRIPE_API_KEY);
+const stripeKey = Stripe(process.env.STRIPE_API_KEY);
 
 const router = express.Router();
 
@@ -27,7 +26,7 @@ const makeCheckoutProducts = (products) => {
 
 router.post("/create-checkout-session", async (req, res) => {
   try {
-    const key = process.env.STRIPE_API_KEY || "";
+    const key = stripeKey || "";
     const data = req.body;
     const products = await makeCheckoutProducts(data);
 
@@ -39,8 +38,8 @@ router.post("/create-checkout-session", async (req, res) => {
       mode: "payment",
       payment_method_types: ["card"],
       line_items: products,
-      success_url: "http://localhost:3000/",
-      cancel_url: "http://localhost:3000/",
+      success_url: "https://ecommerce-five-ochre.vercel.app",
+      cancel_url: "https://ecommerce-five-ochre.vercel.app",
     });
 
     res.send({ totalSession: session, checkoutUrl: session.url });
