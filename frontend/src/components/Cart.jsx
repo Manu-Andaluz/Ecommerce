@@ -11,16 +11,17 @@ import {
 
 import { Link } from "react-router-dom";
 import PayButton from "./PayButton";
+import axios from "axios";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getTotals());
+    console.log(cart, "asdas");
   }, [cart, dispatch]);
 
   const handleAddToCart = (product) => {
@@ -34,6 +35,16 @@ const Cart = () => {
   };
   const handleClearCart = () => {
     dispatch(clearCart());
+  };
+
+  const handleCheckout = () => {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/order/checkout`, cart.cartItems)
+      .then((res) => {
+        if (res) {
+          window.location.href = res.data.checkoutUrl;
+        }
+      });
   };
   return (
     <div className="cart-container">
