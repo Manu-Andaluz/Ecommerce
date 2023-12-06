@@ -43,15 +43,14 @@ const ProductDetails = () => {
                 );
               })}
             </div>
+            <button
+              className="add-cart-btn-details"
+              onClick={() => handleAddToCart(product)}
+            >
+              Add to Cart
+            </button>
           </form>
         )}
-
-        <button
-          className="add-cart-btn"
-          onClick={() => handleAddToCart(product)}
-        >
-          Add to Cart
-        </button>
       </div>
     </div>
   );
