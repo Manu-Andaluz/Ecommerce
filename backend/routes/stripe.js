@@ -22,7 +22,7 @@ const makeCheckoutProducts = (products) => {
   return arr;
 };
 
-router.post("/create-checkout-session", async (req, res) => {
+router.post("/checkout", async (req, res) => {
   try {
     const key = process.env.STRIPE_API_KEY || "";
     const data = req.body;

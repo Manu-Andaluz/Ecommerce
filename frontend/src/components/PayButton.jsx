@@ -4,13 +4,11 @@ import { url } from "../slices/api";
 
 const PayButton = ({ cartItems }) => {
   const handleCheckout = async () => {
-    await axios
-      .post(`${url}/stripe/create-checkout-session`, cartItems)
-      .then((res) => {
-        if (res) {
-          window.location.href = res.data.checkoutUrl;
-        }
-      });
+    await axios.post(`${url}/order/checkout`, cartItems).then((res) => {
+      if (res) {
+        window.location.href = res.data.checkoutUrl;
+      }
+    });
   };
 
   return (
