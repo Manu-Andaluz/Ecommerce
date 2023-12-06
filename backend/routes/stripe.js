@@ -1,9 +1,8 @@
 const express = require("express");
 const Stripe = require("stripe");
+const { Order } = require("../models/order");
 
 require("dotenv").config();
-
-const stripeKey = Stripe(process.env.STRIPE_API_KEY);
 
 const router = express.Router();
 
@@ -26,7 +25,7 @@ const makeCheckoutProducts = (products) => {
 
 router.post("/create-checkout-session", async (req, res) => {
   try {
-    const key = stripeKey || "";
+    const key = process.env.STRIPE_API_KEY || "";
     const data = req.body;
     const products = await makeCheckoutProducts(data);
 
