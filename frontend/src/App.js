@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./slices/authSlice";
 import CheckoutSuccess from "./components/CheckoutSuccess";
 import Dashboard from "./components/admin/Dashboard";
@@ -22,13 +22,18 @@ import Summary from "./components/admin/Summary";
 import CreateProduct from "./components/admin/CreateProduct";
 import ProductDetails from "./components/ProductDetails";
 import ProductsList from "./components/admin/list/ProductsList";
+import { getTotals } from "./slices/cartSlice";
 
 function App() {
   const dispatch = useDispatch();
-
+  const cart = useSelector((state) => state.cart);
   useEffect(() => {
     dispatch(loadUser(null));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart]);
 
   return (
     <div className="App">

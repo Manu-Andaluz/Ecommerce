@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { productDetails } from "../slices/productDetails";
-import { addToCart } from "../slices/cartSlice";
+import { addToCart, getTotals } from "../slices/cartSlice";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [addedToCart, setAddedToCart] = useState(false);
 
   useEffect(() => {
     dispatch(productDetails(productId));
@@ -16,7 +16,11 @@ const ProductDetails = () => {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    navigate("/cart");
+    setAddedToCart(true);
+
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 1000);
   };
 
   const product = useSelector((state) => state.productDetails.product);
@@ -26,30 +30,19 @@ const ProductDetails = () => {
       <img src={product?.image?.url} alt="" />
       <div className="product-content">
         <h4>{product.name}</h4>
-        <p>${product.price}</p>
+        <h5>${product.price}</h5>
 
         <p>{product.details}</p>
 
-        {product.sizes && (
-          <form className="sizes-form">
-            <h5>{product.sizes.length > 0 ? "Talles" : ""}</h5>
-            <div className="sizes">
-              {product.sizes.map((size) => {
-                return (
-                  <>
-                    <label htmlFor={size}>{size.toUpperCase()}</label>
-                    <input type="radio" name="talle" value={size} id={size} />
-                  </>
-                );
-              })}
-            </div>
-            <button
-              className="add-cart-btn-details"
-              onClick={() => handleAddToCart(product)}
-            >
-              Add to Cart
-            </button>
-          </form>
+        {addedToCart ? (
+          <button className="added-to-cart">Added to Cart</button>
+        ) : (
+          <button
+            className="add-cart-btn-details"
+            onClick={() => handleAddToCart(product)}
+          >
+            Add to Cart
+          </button>
         )}
       </div>
     </div>
